@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcwvkggm0i1a7"]
+
+[ext_resource type="Script" path="res://terrain.tres.gd" id="1_b78bu"]
+
+[sub_resource type="GDScript" id="GDScript_npfhn"]
+resource_name = "global"
+script/source = "extends Node2D
+
+func _input(event):
+	if event.is_action_pressed(\"ui_cancel\"): get_tree().quit()
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5mj46"]
+noise_type = 3
+frequency = 0.0226
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x1x58"]
+width = 268
+height = 80
+noise = SubResource("FastNoiseLite_5mj46")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4p7wh"]
+noise_type = 3
+frequency = 0.0305
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_okuel"]
+width = 268
+height = 80
+noise = SubResource("FastNoiseLite_4p7wh")
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_npfhn")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(4624, 2592)
+offset_right = 4624.0
+offset_bottom = 2592.0
+scale = Vector2(0.25, 0.25)
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+columns = 268
+script = ExtResource("1_b78bu")
+rows = 80
+threshold = 0.8
+
+[node name="Label" type="Label" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+text = "sfdfafads"
+
+[node name="noise_viewer" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(578, 324)
+scale = Vector2(3, 3)
+texture = SubResource("NoiseTexture2D_x1x58")
+
+[node name="noise_viewer2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(578, 324)
+scale = Vector2(3, 3)
+texture = SubResource("NoiseTexture2D_okuel")
